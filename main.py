@@ -1,11 +1,10 @@
-
 from PIL import Image
 
-image = Image.open("La_tour_Eiffel.jpeg")
+image = Image.open("img/La_tour_Eiffel.jpeg")
 
 image.show()
 
-def filtre_rouge(image):
+def filtre_gris(image):
     # On fait une copie de l'image pour ne pas modifier l'original
     nouvelle = image.copy()
     for y in range(image.height):
@@ -14,5 +13,5 @@ def filtre_rouge(image):
             nouvelle.putpixel((x,y), (r,0,0))
     return nouvelle
 
-image_filtree = filtre_rouge(image)
+image_filtree = filtre_gris(image)
 image_filtree.show()
