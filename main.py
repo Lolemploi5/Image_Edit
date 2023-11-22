@@ -1,4 +1,4 @@
-from PIL import Image, ImageFilter
+from PIL import Image, ImageFilter, ImageDraw, ImageFont
 
 image = Image.open("img/La_tour_Eiffel.jpeg")
 
@@ -27,11 +27,47 @@ image_flou.save("./img/output/img_flou.jpeg")
 
 def dilatation_img(image):
     # Appliquer une dilatation a l'image
-    image_dilatation = image.filter(ImageFilter.MaxFilter(8))
+    image_dilatation = image.filter(ImageFilter.MaxFilter(7))
     return image_dilatation
 
 image_dilatation = dilatation_img(image)
 image_dilatation.show()
 image_dilatation.save("./img/output/img_dilatation.jpeg")
+
+def rotate_img(image):
+    # Pivoter l'image selon un angle spécifié
+    rotate_image = image.rotate(25)
+    return rotate_image
+
+rotate_image = rotate_img(image)
+rotate_image.show()
+rotate_image.save("./img/output/img_rotate.jpeg")
+
+def resize_img(image):
+    # Redimensionner l'image selon des dimensions specifiées
+    resize_image = image.resize((250, 250))
+    return resize_image
+
+resize_image = resize_img(image)
+resize_image.show()
+resize_image.save("./img/output/img_resize.jpeg")
+
+def image_text(image):
+    font = ImageFont.truetype("fonts/Gidole-Regular.ttf", 34)
+    text = image.copy()
+    draw = ImageDraw.Draw(text)
+    draw.text((32, 20), "Hello Paris!", (255, 198, 32), font=font)
+    return text
+
+text_image = image_text(image)
+text_image.show()
+text_image.save("img/output/img_texte.png")
+
+
+
+
+
+
+
 
 
