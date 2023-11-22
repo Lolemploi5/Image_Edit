@@ -1,44 +1,29 @@
 #from filtres import *
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
-texti = input("Entrez le texte a ajouter :")
 image = Image.open("img/input/La_tour_Eiffel.jpeg")
-def image_text(image):
-    font = ImageFont.truetype("fonts/Gidole-Regular.ttf", 34)
-    text = image.copy()
-    draw = ImageDraw.Draw(text)
-    draw.text((32, 20), texti, (255, 198, 32), font=font)
-    return text
 
+image_paths = [
+    "img/input/CS2.jpeg",
+    "img/input/La_tour_Eiffel.jpeg",
+    "img/input/MW3.jpeg"
+]
 
-text_image = image_text(image)
-text_image.show()
-text_image.save("img/output/img_texte.png")
+def filtre_gris(image):
+    nouvelle = image.copy()
+    for y in range(image.height):
+        for x in range(image.width):
+            r, g, b = image.getpixel((x,y))
+            nouvelle.putpixel((x,y), (r,r,r))
+    return nouvelle
 
+image_filtree = filtre_gris(image)
 
+image_filtree.save("img/output/imagenoirblanc.jpeg")
 
-"""
-def appliquer_filtres_sur_images(liste_images):
-    for chemin_image in liste_images:
-        # Charger l'image
-        image = Image.open(chemin_image)
+for img_path in image_paths:
+    image = Image.open(img_path)
 
-        # Appliquer le filtre noir et blanc
-        image_noir_blanc = filtre_gris(image)
+    image_filtree = filtre_gris(image)
+    image_filtree.show()
+    image_filtree.save("img/output/" + img_path.split("/")[-1].split(".")[0] + "_filtre_gris.jpg")
 
-        # Appliquer le filtre de flou à l'image en noir et blanc
-        image_floue = ajouter_filtre_flou(image)
-
-        # Appliquer la rotation à l'image floutée
-        image_rotated = rotate_img(image)
-
-        # Sauvegarder l'image résultante
-        chemin_sortie = f"img/output/{chemin_image.split('/')[-1].split('.')[0]}_resultat.jpg"
-        image_rotated.save(chemin_sortie)
-
-if main.py == "filtres.py":
-    # Liste des chemins vers les images
-    liste_images = ["img/input/La_tour_Eiffel.jpeg", "img/input/CS2.jpeg", "img/input/MW3.jpeg"]
-
-    # Appliquer les filtres sur toutes les images
-    appliquer_filtres_sur_images(liste_images)
-"""
