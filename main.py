@@ -6,8 +6,8 @@ while True:
     path = input("Enter a path (or enter 'q' to quit): ")
     if path != "q":
         image_paths.append(path)
+        break
     elif path == "q":
-
         break
 
 
