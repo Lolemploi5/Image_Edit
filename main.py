@@ -13,7 +13,7 @@ def applique_filtre(image, filtres):
     for tout_filtre in filtres:
         parts = tout_filtre.split(':')
         type_filtre = parts[0]
-        filter_value = int(parts[1]) if len(parts) > 1 else None
+        filter_value = len(parts) > 1 or None
 
         if type_filtre == 'gris':
             image = filtre_gris(image)
@@ -22,14 +22,16 @@ def applique_filtre(image, filtres):
         elif type_filtre == 'dilatation':
             image = dilatation_img(image)
         elif type_filtre == 'rotation':
+            filter_value = int(parts[1]) if len(parts) > 1 else None
             image = rotate_img(image, filter_value)
-        elif type_filtre == 'resize':
-            width, height = map(int, parts[1].split('&'))
-            image = resize_img(image, width, height)
         elif type_filtre == 'texte':
+            filter_value = parts[1]
             image = image_text(image, filter_value)
+        elif type_filtre == 'resize':
+            width = int(parts[1]) if len(parts) > 1 else None
+            height = int(parts[1]) if len(parts) > 1 else None
+            image = resize_img(image, width, height)
     return image
-
 ###################
 ####Filtre gris####
 ###################
