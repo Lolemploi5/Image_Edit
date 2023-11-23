@@ -13,7 +13,7 @@ def applique_filtre(image, filtres):
     for tout_filtre in filtres:
         parts = tout_filtre.split(':')
         type_filtre = parts[0]
-        filter_value = int(parts[1]) if len(parts) > 1 else None
+        filter_value = len(parts) > 1 or None
 
         if type_filtre == 'gris':
             image = filtre_gris(image)
@@ -22,12 +22,14 @@ def applique_filtre(image, filtres):
         elif type_filtre == 'dilatation':
             image = dilatation_img(image)
         elif type_filtre == 'rotation':
+            filter_value = int(parts[1]) if len(parts) > 1 else None
             image = rotate_img(image, filter_value)
+        elif type_filtre == 'texte':
+            filter_value = parts[1]
+            image = image_text(image, filter_value)
         elif type_filtre == 'resize':
             width, height = map(int, parts[1].split('&'))
             image = resize_img(image, width, height)
-        elif type_filtre == 'texte':
-            image = image_text(image, filter_value)
     return image
 
 ###################
@@ -90,7 +92,7 @@ def image_text(image, text):
 
 def main():
     parser = argparse.ArgumentParser(description='Appliquer des filtres à une image.')
-    parser.add_argument('--filters', type=str, help='Filtres à appliquer, séparés par "&". Par exemple, "gray&rotate:55"')
+    parser.add_argument('--filters', type=str, help='Filtres à appliquer, séparés par "&". \n Les filtres: gris flou dilatation rotation resize texte.  Exemple: "gray&rotate:55"')
     parser.add_argument('--i', type=str, help='Dossier source qui contient les images initiales')
     parser.add_argument('--o', type=str, help='Dossier destination qui contiendra les images modifiées')
 
