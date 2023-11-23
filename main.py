@@ -6,7 +6,7 @@ import os
 
 image_paths = []
 
-image = Image.open("img/input/La_tour_Eiffel.jpeg")
+image = Image.open("img/input/cat.jpeg")
 
 def applique_filtre(image, filtres):
 #################################################
