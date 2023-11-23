@@ -1,27 +1,39 @@
-#from filtres import *
+import argparse
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
+import os
 
 image_paths = []
-while True:
-    path = input("Enter a path (or enter 'q' to quit): ")
-    if path != "q":
-        image_paths.append(path)
-    elif path == "q":
-
-        break
-
-
-
-
-
-
 
 image = Image.open("img/input/La_tour_Eiffel.jpeg")
 
+def applique_filtre(image, filtres):
+    """
+    Applique les filtres spécifiés à l'image.
+    """
+    for tout_filtre in filtres:
+        parts = tout_filtre.split(':')
+        type_filtre = parts[0]
+        filter_value = int(parts[1]) if len(parts) > 1 else None
+
+        if type_filtre == 'gris':
+            image = filtre_gris(image)
+        elif type_filtre == 'flou':
+            image = filtre_flou(image)
+        elif type_filtre == 'dilatation':
+            image = dilatation_img(image)
+        elif type_filtre == 'rotation':
+            image = rotate_img(image, filter_value)
+        elif type_filtre == 'resize':
+            width, height = map(int, parts[1].split('&'))
+            image = resize_img(image, width, height)
+        elif type_filtre == 'texte':
+            image = image_text(image, filter_value)
+    return image
 
 ###################
 ####Filtre gris####
 ###################
+
 def filtre_gris(image):
     nouvelle = image.copy()
     for y in range(image.height):
@@ -30,17 +42,14 @@ def filtre_gris(image):
             nouvelle.putpixel((x,y), (r,r,r))
     return nouvelle
 
-image_filtree = filtre_gris(image)
-
 ###################
 ####Filtre Flou####
 ###################
+
 def filtre_flou(image):
     # Appliquer un filtre de flou
     image_flou = image.filter(ImageFilter.BLUR)
     return image_flou
-
-image_flou = filtre_flou(image)
 
 ##################
 ####Dilatation####
@@ -50,83 +59,54 @@ def dilatation_img(image):
     image_dilatation = image.filter(ImageFilter.MaxFilter(7))
     return image_dilatation
 
-image_dilatation = dilatation_img(image)
-
 ################
 ####Rotation####
 ################
 
-#ar = angle de rotation
-ars = input("Entrer l'angle de rotation :")
-ar = int(ars)
-
-def rotate_img(image):
+def rotate_img(image, angle):
     # Pivoter l'image selon un angle spécifié
-    rotate_image = image.rotate(ar)
+    rotate_image = image.rotate(angle)
     return rotate_image
-
-rotate_image = rotate_img(image)
 
 #########################
 ####Redimentionnement####
 #########################
 
-dimLi = input("Entrer la largeur de l'image :")
-dimL = int(dimLi)
-
-dimAi = input("Entrer la hauteur de l'image :")
-dimA = int(dimAi)
-def resize_img(image):
+def resize_img(image, width, height):
     # Redimensionner l'image selon des dimensions specifiées
-    resize_image = image.resize((dimL, dimA))
+    resize_image = image.resize((width, height))
     return resize_image
-
-resize_image = resize_img(image)
 
 ##################
 ####Image text####
 ##################
 
-texti = input("Entrez le texte a ajouter :")
-
-
-def image_text(image):
+def image_text(image, text):
     font = ImageFont.truetype("fonts/Gidole-Regular.ttf", 34)
-    text = image.copy()
-    draw = ImageDraw.Draw(text)
-    draw.text((32, 20), texti, (255, 198, 32), font=font)
-    return text
+    text_image = image.copy()
+    draw = ImageDraw.Draw(text_image)
+    draw.text((32, 20), text, (255, 198, 32), font=font)
+    return text_image
+
+def main():
+    parser = argparse.ArgumentParser(description='Appliquer des filtres à une image.')
+    parser.add_argument('--filters', type=str, help='Filtres à appliquer, séparés par "&". Par exemple, "gray&rotate:55"')
+    parser.add_argument('--i', type=str, help='Dossier source qui contient les images initiales')
+    parser.add_argument('--o', type=str, help='Dossier destination qui contiendra les images modifiées')
+
+    args = parser.parse_args()
+
+    if not args.filters or not args.i or not args.o:
+        print("Veuillez spécifier les filtres, le dossier source et le dossier destination.")
+        return
+
+    filters = args.filters.split('&')
+
+    image = Image.open(args.i)
+    image_filtree = applique_filtre(image, filters)
+    image_filtree.show()
+    image_filtree.save(os.path.join(args.o, f"{os.path.splitext(os.path.basename(args.i))[0]}_filtre.jpg"))
 
 
-text_image = image_text(image)
-
-
-#Boucle pour faire plusieurs images
-for img_path in image_paths:
-    image = Image.open(img_path)
-#Filtre gris
-    image_filtree = filtre_gris(image)
-    image_filtree.show()
-    image_filtree.save("img/output/" + img_path.split("/")[-1].split(".")[0] + "_filtre_gris.jpg")
-#Filtre flou
-    image_filtree = filtre_flou(image)
-    image_filtree.show()
-    image_filtree.save("img/output/" + img_path.split("/")[-1].split(".")[0] + "_filtre_flou.jpg")
-#Dilatation
-    image_filtree = dilatation_img(image)
-    image_filtree.show()
-    image_filtree.save("img/output/" + img_path.split("/")[-1].split(".")[0] + "_filtre_dilatation.jpg")
-#Rotation
-    image_filtree = rotate_img(image)
-    image_filtree.show()
-    image_filtree.save("img/output/" + img_path.split("/")[-1].split(".")[0] + "_filtre_rotation.jpg")
-#Redimentionnement
-    image_filtree = resize_img(image)
-    image_filtree.show()
-    image_filtree.save("img/output/" + img_path.split("/")[-1].split(".")[0] + "_filtre_resize.jpg")
-#Image texte
-    image_filtree = image_text(image)
-    image_filtree.show()
-    image_filtree.save("img/output/" + img_path.split("/")[-1].split(".")[0] + "_filtre_imgtxt.jpg")
-
-
+if __name__ == "__main__":
+    main()
