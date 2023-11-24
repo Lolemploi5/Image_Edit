@@ -123,7 +123,7 @@ def main():
     try: #on verifie d'abord si nos arguments sont bons
         if not os.path.exists(args.i):
             raise FileNotFoundError(f"Le fichier source '{args.i}' n'existe pas.")
-        elif not args.i.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
+        elif not args.i.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
             raise ValueError(f"Le fichier source '{args.i}' n'est pas une image valide.")
 
         image = Image.open(args.i)
