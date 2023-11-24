@@ -12,24 +12,24 @@ Il y a **6** filtres permettant de modifier des images:
 
 ## Liste des commandes
 Pour pouvoir exécuter ces filtres voici les commandes suivantes :
-"""
+'''
 python3 main.py --filters "gris" --i img/input/cat.jpeg --o img/output
-"""
-"""
+'''
+'''
 python3 main.py --filters "flou" --i img/input/cat.jpeg --o img/output
-"""
-"""
+'''
+'''
 python3 main.py --filters "dilatation" --i img/input/cat.jpeg --o img/output
-"""
-"""
+'''
+'''
 python3 main.py --filters "rotation:50" --i img/input/cat.jpeg --o img/output
-"""
-"""
+'''
+'''
 python3 main.py --filters "texte" --i img/input/cat.jpeg --o img/output
-"""
-"""
+'''
+'''
 python3 main.py --filters "taille:100x100" --i img/input/cat.jpeg --o img/output
-"""
+'''
 
 
 
