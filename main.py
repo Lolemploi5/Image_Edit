@@ -9,6 +9,7 @@ image = Image.open("img/input/La_tour_Eiffel.jpeg")
 def applique_filtre(image, filtres):
     """
     Applique les filtres spécifiés à l'image.
+
     """
     for tout_filtre in filtres:
         parts = tout_filtre.split(':')
@@ -28,10 +29,10 @@ def applique_filtre(image, filtres):
             filter_value = parts[1]
             image = image_text(image, filter_value)
         elif type_filtre == 'taille':
-            width = int(parts[1]) if len(parts) > 1 else None
-            height = int(parts[1]) if len(parts) > 1 else None
+            width, height = map(int, parts[1].split('x'))
             image = resize_img(image, width, height)
     return image
+
 ###################
 ####Filtre gris####
 ###################
@@ -75,7 +76,10 @@ def rotate_img(image, angle):
 #########################
 
 def resize_img(image, width, height):
-    # Redimensionner l'image selon des dimensions specifiées
+    """
+    Redimensionner l'image selon des dimensions specifiées
+    resize_image: paramètre qui stock la valeur donner
+    """
     resize_image = image.resize((width, height))
     return resize_image
 
@@ -84,6 +88,12 @@ def resize_img(image, width, height):
 ##################
 
 def image_text(image, text):
+    """
+    Met un texte à l'image 
+    font: stock la police de l'image qui est contenue dans un dossier 
+    texte_image: fait un copie de l'image 
+    draw: transforme l'image en dessin afin de pour intégret le texte 
+    """
     font = ImageFont.truetype("fonts/Gidole-Regular.ttf", 34)
     text_image = image.copy()
     draw = ImageDraw.Draw(text_image)

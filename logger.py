@@ -26,10 +26,10 @@ logger.addHandler(console_handler)
 
 test = True
 if test == True:
-  try:
-     logger.info('IE_Logger est operationnel [OK]')
-  except:
-     logger.warning('Test log 1 [KO]')
+   try:
+      logger.info('IE_Logger est operationnel [OK]')
+   except:
+      logger.warning('Test log 1 [KO]')
 
 
 
