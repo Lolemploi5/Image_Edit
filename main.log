@@ -12,3 +12,4 @@
 2023-11-23 23:52:10,861 - ERROR - Une erreur s'est produite : module 'logging' has no attribute 'success'
 2023-11-24 07:00:34,729, IE_Logger INFO IE_Logger est operationnel [OK]
 
+2023-11-24 10:36:53,229 - INFO - Opération réussie : ['gris'] sur l'image img/input/La_tour_Eiffel.jpeg. Résultat sauvegardé dans img/output/La_tour_Eiffel_filtre.jpg

@@ -1,0 +1,1 @@
+--filters "rotation:23" --i img/input/cat.jpeg --o img/output
