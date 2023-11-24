@@ -9,6 +9,7 @@ Il y a **6** filtres permettant de modifier des images:
 -Le filtre pour pivoter l'image
 -Le filtre pour redimensionner l'image
 -Le filtre pour écrire du texte sur l'image
+-Le filtre aquarelle
 
 ## Liste des commandes
 Pour pouvoir exécuter ces filtres voici les commandes suivantes :
