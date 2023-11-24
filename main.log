@@ -1,11 +1,14 @@
+
 2023-11-23 15:32:46,562, IE_Logger INFO IE_Logger est operationnel [OK]
-2023-11-23 15:32:46,563, IE_Logger DEBUG Donnees spécifiées incorectes [KO]
+2023-11-23 15:32:46,563, IE_Logger DEBUG Donnees spï¿½cifiï¿½es incorectes [KO]
 2023-11-23 23:28:50,007 - ERROR - Une erreur s'est produite : Le fichier source 'img/input/' n'est pas une image valide.
 2023-11-23 23:31:01,461 - ERROR - Une erreur s'est produite : Le fichier source 'img/input/' n'est pas une image valide.
 2023-11-23 23:31:49,189 - ERROR - Une erreur s'est produite : 'Namespace' object has no attribute 'source'
-2023-11-23 23:34:44,492 - INFO - Opération réussie : ['dilatation', 'rotation:50'] sur l'image img/input/cat.jpeg. Résultat sauvegardé dans img/output\cat_filtre.jpg
-2023-11-23 23:49:16,169 - INFO - Opération réussie : ['dila0'] sur l'image img/input/cat.jpeg. Résultat sauvegardé dans img/output\cat_filtre.jpg
+2023-11-23 23:34:44,492 - INFO - Opï¿½ration rï¿½ussie : ['dilatation', 'rotation:50'] sur l'image img/input/cat.jpeg. Rï¿½sultat sauvegardï¿½ dans img/output\cat_filtre.jpg
+2023-11-23 23:49:16,169 - INFO - Opï¿½ration rï¿½ussie : ['dila0'] sur l'image img/input/cat.jpeg. Rï¿½sultat sauvegardï¿½ dans img/output\cat_filtre.jpg
 2023-11-23 23:50:40,693 - ERROR - Une erreur s'est produite : Le fichier source 'img/input/capeg' n'existe pas.
 2023-11-23 23:50:47,689 - ERROR - Une erreur s'est produite : Le fichier source 'img/input/capeg' n'existe pas.
-2023-11-23 23:51:00,725 - INFO - Opération réussie : ['dilatation', 'rotation:50'] sur l'image img/input/cat.jpeg. Résultat sauvegardé dans img/output\cat_filtre.jpg
+2023-11-23 23:51:00,725 - INFO - Opï¿½ration rï¿½ussie : ['dilatation', 'rotation:50'] sur l'image img/input/cat.jpeg. Rï¿½sultat sauvegardï¿½ dans img/output\cat_filtre.jpg
 2023-11-23 23:52:10,861 - ERROR - Une erreur s'est produite : module 'logging' has no attribute 'success'
+2023-11-24 07:00:34,729, IE_Logger INFO IE_Logger est operationnel [OK]
+

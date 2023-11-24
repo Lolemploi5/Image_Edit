@@ -11,29 +11,6 @@ image_paths = []
 
 image = Image.open("img/input/La_tour_Eiffel.jpeg")
 
-def applique_filtre(image, filtres):
-    """
-    Applique les filtres spécifiés à l'image.
-    """
-    for tout_filtre in filtres:
-        parts = tout_filtre.split(':')
-        type_filtre = parts[0]
-        filter_value = int(parts[1]) if len(parts) > 1 else None
-
-        if type_filtre == 'gris':
-            image = filtre_gris(image)
-        elif type_filtre == 'flou':
-            image = filtre_flou(image)
-        elif type_filtre == 'dilatation':
-            image = dilatation_img(image)
-        elif type_filtre == 'rotation':
-            image = rotate_img(image, filter_value)
-        elif type_filtre == 'resize':
-            width, height = map(int, parts[1].split('&'))
-            image = resize_img(image, width, height)
-        elif type_filtre == 'texte':
-            image = image_text(image, filter_value)
-    return image
 
 ###################
 ####Filtre gris####
@@ -78,7 +55,10 @@ def rotate_img(image, angle):
 #########################
 
 def resize_img(image, width, height):
-    # Redimensionner l'image selon des dimensions specifiées
+    """
+    Redimensionner l'image selon des dimensions specifiées
+    resize_image: paramètre qui stock la valeur donner
+    """
     resize_image = image.resize((width, height))
     return resize_image
 
@@ -87,15 +67,49 @@ def resize_img(image, width, height):
 ##################
 
 def image_text(image, text):
+    """
+    Met un texte à l'image 
+    font: stock la police de l'image qui est contenue dans un dossier 
+    texte_image: fait un copie de l'image 
+    draw: transforme l'image en dessin afin de pour intégret le texte 
+    """
     font = ImageFont.truetype("fonts/Gidole-Regular.ttf", 34)
     text_image = image.copy()
     draw = ImageDraw.Draw(text_image)
     draw.text((32, 20), text, (255, 198, 32), font=font)
     return text_image
 
+def applique_filtre(image, filtres):
+    """
+    Applique les filtres spécifiés à l'image.
+
+    """
+    for tout_filtre in filtres:
+        parts = tout_filtre.split(':')
+        type_filtre = parts[0]
+        filter_value = len(parts) > 1 or None
+
+        if type_filtre == 'gris':
+            image = filtre_gris(image)
+        elif type_filtre == 'flou':
+            image = filtre_flou(image)
+        elif type_filtre == 'dilatation':
+            image = dilatation_img(image)
+        elif type_filtre == 'rotation':
+            filter_value = int(parts[1]) if len(parts) > 1 else None
+            image = rotate_img(image, filter_value)
+        elif type_filtre == 'texte':
+            filter_value = parts[1]
+            image = image_text(image, filter_value)
+        elif type_filtre == 'taille':
+            width, height = map(int, parts[1].split('x'))
+            image = resize_img(image, width, height)
+    return image
+
+
 def main():
     parser = argparse.ArgumentParser(description='Appliquer des filtres à une image.')
-    parser.add_argument('--filters', type=str, help='Filtres à appliquer, séparés par "&". Par exemple, "gray&rotate:55"')
+    parser.add_argument('--filters', type=str, help='Filtres à appliquer, séparés par "&". Filtre: gris flou rotaion dilatation taille texte Exemple, "gray&rotate:55"')
     parser.add_argument('--i', type=str, help='Dossier source qui contient les images initiales')
     parser.add_argument('--o', type=str, help='Dossier destination qui contiendra les images modifiées')
 
