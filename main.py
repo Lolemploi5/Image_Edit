@@ -79,6 +79,16 @@ def image_text(image, text):
     draw.text((32, 20), text, (255, 198, 32), font=font)
     return text_image
 
+
+##################
+####Aquarelle#####
+##################
+
+def appliquer_filtre_aquarelle(image):
+    # Appliquer le filtre aquarelle
+    image_aquarelle = image.filter(ImageFilter.CONTOUR)
+    return image_aquarelle
+
 def applique_filtre(image, filtres):
     """
     Applique les filtres spécifiés à l'image.
@@ -111,6 +121,8 @@ def applique_filtre(image, filtres):
             #width, height:  prend les valeur en Entier avant et après le 'x'
             width, height = map(int, parts[1].split('x'))
             image = resize_img(image, width, height)
+        elif type_filtre == 'aqua':
+            image = appliquer_filtre_aquarelle(image)
     return image
 
 
