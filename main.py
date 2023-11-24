@@ -1,37 +1,12 @@
 import argparse
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import os
+import logger
 
 image_paths = []
 
 image = Image.open("img/input/La_tour_Eiffel.jpeg")
 
-def applique_filtre(image, filtres):
-    """
-    Applique les filtres spécifiés à l'image.
-
-    """
-    for tout_filtre in filtres:
-        parts = tout_filtre.split(':')
-        type_filtre = parts[0]
-        filter_value = len(parts) > 1 or None
-
-        if type_filtre == 'gris':
-            image = filtre_gris(image)
-        elif type_filtre == 'flou':
-            image = filtre_flou(image)
-        elif type_filtre == 'dilatation':
-            image = dilatation_img(image)
-        elif type_filtre == 'rotation':
-            filter_value = int(parts[1]) if len(parts) > 1 else None
-            image = rotate_img(image, filter_value)
-        elif type_filtre == 'texte':
-            filter_value = parts[1]
-            image = image_text(image, filter_value)
-        elif type_filtre == 'taille':
-            width, height = map(int, parts[1].split('x'))
-            image = resize_img(image, width, height)
-    return image
 
 ###################
 ####Filtre gris####
@@ -99,6 +74,34 @@ def image_text(image, text):
     draw = ImageDraw.Draw(text_image)
     draw.text((32, 20), text, (255, 198, 32), font=font)
     return text_image
+
+def applique_filtre(image, filtres):
+    """
+    Applique les filtres spécifiés à l'image.
+
+    """
+    for tout_filtre in filtres:
+        parts = tout_filtre.split(':')
+        type_filtre = parts[0]
+        filter_value = len(parts) > 1 or None
+
+        if type_filtre == 'gris':
+            image = filtre_gris(image)
+        elif type_filtre == 'flou':
+            image = filtre_flou(image)
+        elif type_filtre == 'dilatation':
+            image = dilatation_img(image)
+        elif type_filtre == 'rotation':
+            filter_value = int(parts[1]) if len(parts) > 1 else None
+            image = rotate_img(image, filter_value)
+        elif type_filtre == 'texte':
+            filter_value = parts[1]
+            image = image_text(image, filter_value)
+        elif type_filtre == 'taille':
+            width, height = map(int, parts[1].split('x'))
+            image = resize_img(image, width, height)
+    return image
+
 
 def main():
     parser = argparse.ArgumentParser(description='Appliquer des filtres à une image.')
