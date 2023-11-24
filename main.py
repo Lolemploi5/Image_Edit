@@ -1,7 +1,11 @@
 import argparse
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import os
-import logger
+import logging
+
+# Configuration du fchier de log
+log_format = '%(asctime)s - %(levelname)s - %(message)s' #format des log affichés
+logging.basicConfig(filename='main.log', level=logging.INFO, format=log_format)
 
 image_paths = []
 
@@ -116,11 +120,36 @@ def main():
         return
 
     filters = args.filters.split('&')
+    try: #on verifie d'abord si nos arguments sont bons
+        if not os.path.exists(args.i):
+            raise FileNotFoundError(f"Le fichier source '{args.i}' n'existe pas.")
+        elif not args.i.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
+            raise ValueError(f"Le fichier source '{args.i}' n'est pas une image valide.")
 
-    image = Image.open(args.i)
-    image_filtree = applique_filtre(image, filters)
-    image_filtree.show()
-    image_filtree.save(os.path.join(args.o, f"{os.path.splitext(os.path.basename(args.i))[0]}_filtre.jpg"))
+        image = Image.open(args.i)
+        try: #on applique la fonction des filtres sur l'image
+            image_filtree = applique_filtre(image, filters)
+        except Exception as filter_error: #si ça marche pas on soulève une erreur
+            print(f"Erreur lors de l'application des filtres : {filter_error}")
+
+            # on ecrit l'erreur dans le fichier de log
+            logging.error(f"Erreur lors de l'application des filtres : {filter_error}")
+            return
+
+        #on créé le nom de notre fichier de sortie
+        chemin_sortie = os.path.join(args.o, f"{os.path.splitext(os.path.basename(args.i))[0]}_filtre.jpg")
+        image_filtree.save(chemin_sortie)
+
+        # on ecrit le succès dans notre fichier de log
+        logging.info(f"Opération réussie : {filters} sur l'image {args.i}. Résultat sauvegardé dans {chemin_sortie}")
+
+        #on affiche l'image
+        image_filtree.show()
+
+    except Exception as e: #on soulève les erreur précedentes et on les affiche dans le terminal
+        print(f"Une erreur s'est produite : {e}")
+        #on écrit les erreurs dans le fichier de log
+        logging.error(f"Une erreur s'est produite : {e}")
 
 
 if __name__ == "__main__":

@@ -1,1 +1,14 @@
+
+2023-11-23 15:32:46,562, IE_Logger INFO IE_Logger est operationnel [OK]
+2023-11-23 15:32:46,563, IE_Logger DEBUG Donnees sp�cifi�es incorectes [KO]
+2023-11-23 23:28:50,007 - ERROR - Une erreur s'est produite : Le fichier source 'img/input/' n'est pas une image valide.
+2023-11-23 23:31:01,461 - ERROR - Une erreur s'est produite : Le fichier source 'img/input/' n'est pas une image valide.
+2023-11-23 23:31:49,189 - ERROR - Une erreur s'est produite : 'Namespace' object has no attribute 'source'
+2023-11-23 23:34:44,492 - INFO - Op�ration r�ussie : ['dilatation', 'rotation:50'] sur l'image img/input/cat.jpeg. R�sultat sauvegard� dans img/output\cat_filtre.jpg
+2023-11-23 23:49:16,169 - INFO - Op�ration r�ussie : ['dila0'] sur l'image img/input/cat.jpeg. R�sultat sauvegard� dans img/output\cat_filtre.jpg
+2023-11-23 23:50:40,693 - ERROR - Une erreur s'est produite : Le fichier source 'img/input/capeg' n'existe pas.
+2023-11-23 23:50:47,689 - ERROR - Une erreur s'est produite : Le fichier source 'img/input/capeg' n'existe pas.
+2023-11-23 23:51:00,725 - INFO - Op�ration r�ussie : ['dilatation', 'rotation:50'] sur l'image img/input/cat.jpeg. R�sultat sauvegard� dans img/output\cat_filtre.jpg
+2023-11-23 23:52:10,861 - ERROR - Une erreur s'est produite : module 'logging' has no attribute 'success'
 2023-11-24 07:00:34,729, IE_Logger INFO IE_Logger est operationnel [OK]
+
