@@ -85,10 +85,14 @@ def applique_filtre(image, filtres):
 
     """
     for tout_filtre in filtres:
+        #parts: contient les caractères
         parts = tout_filtre.split(':')
+        #type_filtre:  contient le 1er caractère 
         type_filtre = parts[0]
+        #filter_value: contient la longeur de la chaine de caractère après les ':' ou rien
         filter_value = len(parts) > 1 or None
 
+        #If permet de savoir quel filtre on va prendre 
         if type_filtre == 'gris':
             image = filtre_gris(image)
         elif type_filtre == 'flou':
@@ -96,12 +100,15 @@ def applique_filtre(image, filtres):
         elif type_filtre == 'dilatation':
             image = dilatation_img(image)
         elif type_filtre == 'rotation':
+            #filter_value: prend la valeur de parts[1] en Entier sinon Rien
             filter_value = int(parts[1]) if len(parts) > 1 else None
             image = rotate_img(image, filter_value)
         elif type_filtre == 'texte':
+            #filter_value: prend la valeur de parts en string
             filter_value = parts[1]
             image = image_text(image, filter_value)
         elif type_filtre == 'taille':
+            #width, height:  prend les valeur en Entier avant et après le 'x'
             width, height = map(int, parts[1].split('x'))
             image = resize_img(image, width, height)
     return image
