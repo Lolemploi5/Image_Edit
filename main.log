@@ -12,3 +12,4 @@
 2023-11-23 23:52:10,861 - ERROR - Une erreur s'est produite : module 'logging' has no attribute 'success'
 2023-11-24 07:00:34,729, IE_Logger INFO IE_Logger est operationnel [OK]
 
+2023-11-24 09:27:26,006 - INFO - Opération réussie : ['texte:dahvdaid', 'taille:222x2344'] sur l'image img/input/cat.jpeg. Résultat sauvegardé dans img/output/cat_filtre.jpg
